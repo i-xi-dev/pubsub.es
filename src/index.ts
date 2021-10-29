@@ -19,13 +19,12 @@ type SubscriptionOptions = {
 /**
  * 出版ブローカー
  * @typeParam T - publishされるメッセージの型、かつ購読コールバックの第1引数の型
- * @typeParam U - 購読コールバックの戻り値のPromiseが解決する値の型 
  */
-class Broker<T, U> {
+class Broker<T> {
   /**
    * 購読の登録簿
    */
-  #subscriptions: Map<Topic, Map<(message?: T) => Promise<U>, SubscriptionOptions>>;
+  #subscriptions: Map<Topic, Map<(message?: T) => Promise<void>, SubscriptionOptions>>;
 
   /**
    * コンストラクター
@@ -41,11 +40,11 @@ class Broker<T, U> {
    * @param callback - 購読コールバック
    * @param options - 購読オプション
    */
-  subscribe(topic: Topic, callback: (message?: T) => Promise<U>, options?: SubscriptionOptions): void {
+  subscribe(topic: Topic, callback: (message?: T) => Promise<void>, options?: SubscriptionOptions): void {
     if (this.#subscriptions.has(topic) !== true) {
       this.#subscriptions.set(topic, new Map());
     }
-    const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<U>, SubscriptionOptions>;
+    const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
 
     if (topicSubscriptions.has(callback)) {
       return;
@@ -68,9 +67,9 @@ class Broker<T, U> {
    * @param topic - トピック
    * @param callback - 購読コールバック ※subscribeしたのと同じ参照先である必要がある
    */
-  unsubscribe(topic: Topic, callback: (message?: T) => Promise<U>): void {
+  unsubscribe(topic: Topic, callback: (message?: T) => Promise<void>): void {
     if (this.#subscriptions.has(topic)) {
-      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<U>, SubscriptionOptions>;
+      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
       topicSubscriptions.delete(callback);
     }
   }
@@ -93,9 +92,9 @@ class Broker<T, U> {
    */
   async publish(topic: Topic, message?: T): Promise<void> {
     if (this.#subscriptions.has(topic)) {
-      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<U>, SubscriptionOptions>;
+      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
       const tasks = [ ...topicSubscriptions.entries() ].map(([ callback, options ]) => {
-        return (async (): Promise<U> => {
+        return (async (): Promise<void> => {
           if (options.once === true) {
             this.unsubscribe(topic, callback);
           }
