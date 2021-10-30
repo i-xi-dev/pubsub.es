@@ -40,7 +40,7 @@ class Broker<T> {
    * @param callback - 購読コールバック
    * @param options - 購読オプション
    */
-  subscribe(topic: Topic, callback: (message?: T) => Promise<void>, options?: SubscriptionOptions): void {
+  subscribe(topic: Topic, callback: (message?: T) => Promise<void>, options: SubscriptionOptions = {}): void {
     if (this.#subscriptions.has(topic) !== true) {
       this.#subscriptions.set(topic, new Map());
     }
@@ -50,16 +50,17 @@ class Broker<T> {
       return;
     }
 
-    if (options?.signal instanceof AbortSignal) {
+    if (options.signal instanceof AbortSignal) {
+      if (options.signal.aborted === true) {
+        return;
+      }
+
       options.signal.addEventListener("abort", (): void => {
         this.unsubscribe(topic, callback);
       }, { once: true });
     }
 
-    if (options?.signal?.aborted === true) {
-      return;
-    }
-    topicSubscriptions.set(callback, options ? options : {});
+    topicSubscriptions.set(callback, options);
   }
 
   /**
@@ -105,7 +106,13 @@ class Broker<T> {
 
       const rejectedResults: PromiseRejectedResult[] = results.filter((result) => result.status === "rejected") as PromiseRejectedResult[];
       if (rejectedResults.length > 0) {
-        throw new AggregateError(rejectedResults.map((result) => result.reason));
+        const errors: Error[] = rejectedResults.map((result: PromiseRejectedResult): Error => {
+          if (result.reason instanceof Error) {
+            return result.reason;
+          }
+          return new Error(`${result.reason}`);
+        });
+        throw new AggregateError(errors);
       }
     }
   }

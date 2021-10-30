@@ -1,6 +1,6 @@
 {
   "name": "@i-xi-dev/pubsub",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "A JavaScript Pub/Sub Broker.",
   "type": "module",
   "main": "./dist/index.js",

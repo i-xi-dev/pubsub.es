@@ -124,17 +124,12 @@ describe("Broker.prototype.subscribe", () => {
     broker.subscribe(topic2, async (data) => t2results2.push(data), { once: true, signal: c2.signal });
     await broker.publish(topic2, "t2-data2");
     c2.abort();
+    await broker.publish(topic2, "t2-data3");
 
     assert.strictEqual(t1results1.join(","), `t1-data1`);
     assert.strictEqual(t1results2.join(","), ``);
     assert.strictEqual(t2results1.join(","), `t2-data1`);
     assert.strictEqual(t2results2.join(","), `t2-data2`);
   });
-
-
-
-
-
-
 
 });

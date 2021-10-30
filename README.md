@@ -77,6 +77,7 @@ broker.subscribe(topic2, (message) => {
 //   topic: symbol | string,
 //   message?: T
 // ): Promise<void>
+// rejects with AggregateError, if one or more callbacks failed.
 
 await broker.publish(topic1, "X");
 // → subscriber11: [ "X" ]
