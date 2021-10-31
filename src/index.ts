@@ -24,7 +24,7 @@ class Broker<T> {
   /**
    * 購読の登録簿
    */
-  #subscriptions: Map<Topic, Map<(message?: T) => Promise<void>, SubscriptionOptions>>;
+  #subscriptions: Map<Topic, Map<(message: T) => Promise<void>, SubscriptionOptions>>;
 
   /**
    * コンストラクター
@@ -40,11 +40,11 @@ class Broker<T> {
    * @param callback - 購読コールバック
    * @param options - 購読オプション
    */
-  subscribe(topic: Topic, callback: (message?: T) => Promise<void>, options: SubscriptionOptions = {}): void {
+  subscribe(topic: Topic, callback: (message: T) => Promise<void>, options: SubscriptionOptions = {}): void {
     if (this.#subscriptions.has(topic) !== true) {
       this.#subscriptions.set(topic, new Map());
     }
-    const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
+    const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message: T) => Promise<void>, SubscriptionOptions>;
 
     if (topicSubscriptions.has(callback)) {
       return;
@@ -68,9 +68,9 @@ class Broker<T> {
    * @param topic - トピック
    * @param callback - 購読コールバック ※subscribeしたのと同じ参照先である必要がある
    */
-  unsubscribe(topic: Topic, callback: (message?: T) => Promise<void>): void {
+  unsubscribe(topic: Topic, callback: (message: T) => Promise<void>): void {
     if (this.#subscriptions.has(topic)) {
-      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
+      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message: T) => Promise<void>, SubscriptionOptions>;
       topicSubscriptions.delete(callback);
     }
   }
@@ -91,9 +91,9 @@ class Broker<T> {
    * @param topic - トピック
    * @param message - メッセージ
    */
-  async publish(topic: Topic, message?: T): Promise<void> {
+  async publish(topic: Topic, message: T): Promise<void> {
     if (this.#subscriptions.has(topic)) {
-      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message?: T) => Promise<void>, SubscriptionOptions>;
+      const topicSubscriptions = this.#subscriptions.get(topic) as Map<(message: T) => Promise<void>, SubscriptionOptions>;
       const tasks = [ ...topicSubscriptions.entries() ].map(([ callback, options ]) => {
         return (async (): Promise<void> => {
           if (options.once === true) {
@@ -110,7 +110,7 @@ class Broker<T> {
           if (result.reason instanceof Error) {
             return result.reason;
           }
-          return new Error(`${result.reason}`);
+          return new Error(`${JSON.stringify(result.reason)}`);
         });
         throw new AggregateError(errors);
       }
