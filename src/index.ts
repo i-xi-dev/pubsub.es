@@ -24,7 +24,7 @@ class Broker<T> {
   /**
    * 購読の登録簿
    */
-  #subscriptions: Map<Topic, Map<(message: T) => Promise<void>, SubscriptionOptions>>;
+  readonly #subscriptions: Map<Topic, Map<(message: T) => Promise<void>, SubscriptionOptions>>;
 
   /**
    * コンストラクター
