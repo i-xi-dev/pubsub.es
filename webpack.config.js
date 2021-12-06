@@ -1,7 +1,7 @@
 import path from "node:path";
 
 export default {
-  mode: "development",
+  mode: "production",
   entry: {
     "/": "./src/index.ts",
   },
