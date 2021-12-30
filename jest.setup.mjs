@@ -1,4 +1,3 @@
-// globalThisがNodeのと違うのでimportしないと使えないもの
 // TODO 何故importが使えないのか
 
 // NodeのglobalThis.AbortControllerを参照できないので、node-abort-controllerを使用
