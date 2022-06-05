@@ -1,8 +1,11 @@
 //
 
+/**
+ * The topic-based Pub/Sub
+ */
 namespace PubSub {
   /**
-   * トピック
+   * The topic.
    */
   export type Topic = symbol | string;
     
@@ -18,7 +21,7 @@ namespace PubSub {
   };
 
   /**
-   * 出版ブローカー
+   * The message broker.
    * @typeParam T publishされるメッセージの型、かつ購読コールバックの第1引数の型
    */
   export class Broker<T> {
@@ -28,7 +31,7 @@ namespace PubSub {
     readonly #subscriptions: Map<Topic, Map<(message: T) => Promise<void>, SubscriptionOptions>>;
   
     /**
-     * コンストラクター
+     * 
      */
     constructor() {
       this.#subscriptions = new Map();
@@ -91,6 +94,7 @@ namespace PubSub {
      * 出版する
      * @param topic トピック
      * @param message メッセージ
+     * @returns 
      */
     async publish(topic: Topic, message: T): Promise<void> {
       if (this.#subscriptions.has(topic)) {
