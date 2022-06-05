@@ -1,9 +1,9 @@
 import assert from "node:assert";
-import { Broker } from "./broker";
+import { PubSub } from "./index";
 
-describe("Broker.prototype.clear", () => {
+describe("PubSub.Broker.prototype.clear", () => {
   it("clear()", async () => {
-    const broker: Broker<string> = new Broker();
+    const broker: PubSub.Broker<string> = new PubSub.Broker();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -49,9 +49,9 @@ describe("Broker.prototype.clear", () => {
 
 });
 
-describe("Broker.prototype.publish", () => {
+describe("PubSub.Broker.prototype.publish", () => {
   it("publish(string, any)", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const topic1 = "t1";
     broker.subscribe(topic1, (data: string) => {
@@ -63,10 +63,11 @@ describe("Broker.prototype.publish", () => {
       assert.strictEqual(true, false);
     }
     catch (err) {
-      if (err instanceof AggregateError) {
+      //if (err instanceof AggregateError) {
+      if (err instanceof Error) {
         assert.strictEqual(err.name, "AggregateError");
-        assert.strictEqual(err.errors.length, 1);
-        assert.strictEqual(err.errors[0].message, "t1-data1");
+        assert.strictEqual((err as unknown as {errors:Array<Error>}).errors.length, 1);
+        assert.strictEqual((err as unknown as {errors:Array<Error>}).errors[0].message, "t1-data1");
       }
       else {
         assert.strictEqual(true, false);
@@ -76,7 +77,7 @@ describe("Broker.prototype.publish", () => {
   });
 
   it("publish(string, any) - 2", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const topic1 = "t1";
     broker.subscribe(topic1, (data: string) => {
@@ -88,10 +89,11 @@ describe("Broker.prototype.publish", () => {
       assert.strictEqual(true, false);
     }
     catch (err) {
-      if (err instanceof AggregateError) {
+      //if (err instanceof AggregateError) {
+      if (err instanceof Error) {
         assert.strictEqual(err.name, "AggregateError");
-        assert.strictEqual(err.errors.length, 1);
-        assert.strictEqual(err.errors[0].message, "\"ex-err\"");
+        assert.strictEqual((err as unknown as {errors:Array<Error>}).errors.length, 1);
+        assert.strictEqual((err as unknown as {errors:Array<Error>}).errors[0].message, "\"ex-err\"");
       }
       else {
         assert.strictEqual(true, false);
@@ -102,9 +104,9 @@ describe("Broker.prototype.publish", () => {
 
 });
 
-describe("Broker.prototype.subscribe", () => {
+describe("PubSub.Broker.prototype.subscribe", () => {
   it("subscribe(string, Function)", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -142,7 +144,7 @@ describe("Broker.prototype.subscribe", () => {
   });
 
   it("subscribe(symbol, Function)", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -180,7 +182,7 @@ describe("Broker.prototype.subscribe", () => {
   });
 
   it("subscribe(string, AsyncFunction)", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -216,7 +218,7 @@ describe("Broker.prototype.subscribe", () => {
   });
 
   it("subscribe(string, Function, { once: boolean })", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -254,7 +256,7 @@ describe("Broker.prototype.subscribe", () => {
   });
 
   it("subscribe(string, Function, { signal: AbortSignal })", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
@@ -298,9 +300,9 @@ describe("Broker.prototype.subscribe", () => {
 
 });
 
-describe("Broker.prototype.unsubscribe", () => {
+describe("PubSub.Broker.prototype.unsubscribe", () => {
   it("unsubscribe(string, Function)", async () => {
-    const broker = new Broker<string>();
+    const broker = new PubSub.Broker<string>();
 
     const t1results1: string[] = [];
     const t1results2: string[] = [];
