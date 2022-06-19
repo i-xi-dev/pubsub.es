@@ -3,9 +3,8 @@
 A JavaScript Pub/Sub Broker.
 
 
-## `Broker` class
+## Requirement
 
-### Requirement
 `Broker` requires [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) and [`AggregateError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError).
 
 - Chrome
@@ -16,9 +15,9 @@ A JavaScript Pub/Sub Broker.
 - Node.js 15.0.0+
 
 
-### Installation
+## Installation
 
-#### npm
+### npm
 
 ```console
 $ npm i @i-xi-dev/pubsub
@@ -28,22 +27,17 @@ $ npm i @i-xi-dev/pubsub
 import { Broker } from "@i-xi-dev/pubsub";
 ```
 
-#### CDN
+### CDN
 
+Example for Skypack
 ```javascript
 import { Broker } from "https://cdn.skypack.dev/@i-xi-dev/pubsub";
 ```
 
-```javascript
-import { Broker } from "https://unpkg.com/@i-xi-dev/pubsub/dist/index.js";
-```
 
-```javascript
-import { Broker } from "https://cdn.jsdelivr.net/npm/@i-xi-dev/pubsub/dist/index.js";
-```
+## Usage
 
-
-### Usage
+### [`Broker`](https://doc.deno.land/https://raw.githubusercontent.com/i-xi-dev/pubsub.es/2.0.1/mod.ts/~/Broker) class
 
 ```javascript
 const broker = new Broker();
