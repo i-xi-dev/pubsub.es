@@ -24,14 +24,14 @@ $ npm i @i-xi-dev/pubsub
 ```
 
 ```javascript
-import { Broker } from "@i-xi-dev/pubsub";
+import { PubSub } from "@i-xi-dev/pubsub";
 ```
 
 ### CDN
 
 Example for Skypack
 ```javascript
-import { Broker } from "https://cdn.skypack.dev/@i-xi-dev/pubsub";
+import { PubSub } from "https://cdn.skypack.dev/@i-xi-dev/pubsub";
 ```
 
 
@@ -40,7 +40,7 @@ import { Broker } from "https://cdn.skypack.dev/@i-xi-dev/pubsub";
 ### [`Broker`](https://doc.deno.land/https://raw.githubusercontent.com/i-xi-dev/pubsub.es/2.0.1/mod.ts/~/Broker) class
 
 ```javascript
-const broker = new Broker();
+const broker = new PubSub.Broker();
 const topic1 = Symbol();
 const topic2 = Symbol();
 

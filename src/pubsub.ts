@@ -13,16 +13,21 @@ namespace PubSub {
    * The object with the following optional fields.
    */
   export type SubscriptionOptions = {
-    /** 1回のみか否か */
+    /**
+     * 1回のみか否か TODO
+     * The default is `false`.
+     */
     once?: boolean;
 
-    /** 中断シグナル */
+    /**
+     * The `AbortSignal` object.
+     */
     signal?: AbortSignal;
   };
 
   /**
    * The message broker.
-   * @typeParam T publishされるメッセージの型、かつ購読コールバックの第1引数の型
+   * @typeParam T TODO publishされるメッセージの型、かつ購読コールバックの第1引数の型
    */
   export class Broker<T> {
     /**
@@ -33,17 +38,20 @@ namespace PubSub {
       Map<(message: T) => Promise<void>, SubscriptionOptions>
     >;
 
-    /** */
+    /**
+     * 
+     */
     constructor() {
       this.#subscriptions = new Map();
       Object.freeze(this);
     }
 
     /**
-     * 購読登録する
-     * @param topic トピック
+     * Subscribes to a topic to consume messages.
+     * 
+     * @param topic The topic to consume messages.
      * @param callback 購読コールバック
-     * @param options 購読オプション
+     * @param options The `PubSub.SubscriptionOptions` object.
      */
     subscribe(
       topic: Topic,
@@ -77,6 +85,7 @@ namespace PubSub {
 
     /**
      * 購読登録を解除する
+     * 
      * @param topic トピック
      * @param callback 購読コールバック ※subscribeしたのと同じ参照先である必要がある
      */
@@ -91,8 +100,7 @@ namespace PubSub {
     }
 
     /**
-     * すべての購読を解除する
-     * トピックも登録簿からすべて削除する
+     * Clears all subscriptions and all topics.
      */
     clear(): void {
       for (const topicSubscriptions of this.#subscriptions.values()) {
@@ -103,7 +111,7 @@ namespace PubSub {
 
     /**
      * 出版する
-     * 
+     *
      * @param topic トピック
      * @param message メッセージ
      * @returns
