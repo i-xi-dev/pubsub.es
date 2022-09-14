@@ -21,24 +21,25 @@ await build({
       "pubsub",
       "browser",
       "deno",
-      "nodejs"
+      "nodejs",
+      "zero-dependency",
     ],
     repository: {
       type: "git",
-      url: "git+https://github.com/i-xi-dev/pubsub.es.git"
+      url: "git+https://github.com/i-xi-dev/pubsub.es.git",
     },
     bugs: {
-      url: "https://github.com/i-xi-dev/pubsub.es/issues"
+      url: "https://github.com/i-xi-dev/pubsub.es/issues",
     },
     publishConfig: {
-      access: "public"
+      access: "public",
     },
     files: [
       "esm",
-      "types"
+      "types",
     ],
   },
-  importMap: "./import_map.json"
+  importMap: "./import_map.json",
 });
 
 Deno.copyFileSync("LICENSE", "npm/LICENSE");

@@ -7,12 +7,9 @@ A JavaScript Pub/Sub Broker.
 
 `Broker` requires [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) and [`AggregateError`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AggregateError).
 
-- Chrome
-- Edge
-- Firefox
-- Safari 14+
-- Deno
-- Node.js 15.0.0+
+| Chrome | Edge | Firefox | Safari | Deno | Node.js |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| ✅ | ✅ | ✅ | ✅<br />14+ | ✅ | ✅<br />15.0.0+ |
 
 
 ## Installation
@@ -20,7 +17,7 @@ A JavaScript Pub/Sub Broker.
 ### npm
 
 ```console
-$ npm i @i-xi-dev/pubsub
+$ npm i @i-xi-dev/pubsub@2.0.1
 ```
 
 ```javascript
@@ -31,7 +28,7 @@ import { PubSub } from "@i-xi-dev/pubsub";
 
 Example for Skypack
 ```javascript
-import { PubSub } from "https://cdn.skypack.dev/@i-xi-dev/pubsub";
+import { PubSub } from "https://cdn.skypack.dev/@i-xi-dev/pubsub@2.0.1";
 ```
 
 
