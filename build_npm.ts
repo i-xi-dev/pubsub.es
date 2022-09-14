@@ -12,7 +12,7 @@ await build({
   rootTestDir: "./tests",
   package: {
     name: "@i-xi-dev/pubsub",
-    version: "2.0.1",
+    version: "2.0.2",
     description: "A JavaScript Pub/Sub Broker.",
     license: "MIT",
     author: "i-xi-dev",
