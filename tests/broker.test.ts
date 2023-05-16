@@ -1,4 +1,4 @@
-import { assertStrictEquals } from "std/testing/asserts";
+import { assertStrictEquals } from "./deps.ts";
 import { PubSub } from "../mod.ts";
 
 Deno.test("PubSub.Broker.prototype.clear", async () => {
