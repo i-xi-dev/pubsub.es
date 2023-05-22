@@ -12,7 +12,7 @@ await build({
   rootTestDir: "./tests",
   package: {
     name: "@i-xi-dev/pubsub",
-    version: "2.0.6",
+    version: "2.0.7",
     description: "A JavaScript Pub/Sub Broker.",
     license: "MIT",
     author: "i-xi-dev",
@@ -39,10 +39,8 @@ await build({
       "types",
     ],
   },
-
-  //
-  typeCheck: false, // 落ちるようになった
-  declaration: false, // 落ちるようになった
+  typeCheck: true,
+  declaration: true,
 });
 
 Deno.copyFileSync("LICENSE", "npm/LICENSE");
