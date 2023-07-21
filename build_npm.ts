@@ -1,4 +1,4 @@
-import { build, emptyDir } from "https://deno.land/x/dnt@0.37.0/mod.ts";
+import { build, emptyDir } from "https://deno.land/x/dnt@0.38.0/mod.ts";
 
 await emptyDir("./npm");
 
@@ -12,7 +12,7 @@ await build({
   rootTestDir: "./tests",
   package: {
     name: "@i-xi-dev/pubsub",
-    version: "2.0.7",
+    version: "2.0.8",
     description: "A JavaScript Pub/Sub Broker.",
     license: "MIT",
     author: "i-xi-dev",
