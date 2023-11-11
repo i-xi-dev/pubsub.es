@@ -17,7 +17,7 @@ A JavaScript Pub/Sub Broker.
 ### npm
 
 ```console
-$ npm i @i-xi-dev/pubsub@2.0.11
+$ npm i @i-xi-dev/pubsub@2.0.12
 ```
 
 ```javascript
@@ -28,13 +28,13 @@ import { PubSub } from "@i-xi-dev/pubsub";
 
 Example for Skypack
 ```javascript
-import { PubSub } from "https://cdn.skypack.dev/@i-xi-dev/pubsub@2.0.11";
+import { PubSub } from "https://cdn.skypack.dev/@i-xi-dev/pubsub@2.0.12";
 ```
 
 
 ## Usage
 
-### [`Broker`](https://doc.deno.land/https://raw.githubusercontent.com/i-xi-dev/pubsub.es/2.0.11/mod.ts/~/PubSub.Broker) class
+### [`Broker`](https://doc.deno.land/https://raw.githubusercontent.com/i-xi-dev/pubsub.es/2.0.12/mod.ts/~/PubSub.Broker) class
 
 ```javascript
 const broker = new PubSub.Broker();
